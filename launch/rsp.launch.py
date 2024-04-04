@@ -9,7 +9,6 @@ from launch_ros.actions import Node
 
 import xacro
 
-
 def generate_launch_description():
 	# Check if we're told to use sim time
 	use_sim_time = LaunchConfiguration('use_sim_time')
@@ -18,6 +17,7 @@ def generate_launch_description():
 	pkg_path = os.path.join(get_package_share_directory('lizardbot1'))
 	xacro_file = os.path.join(pkg_path,'description','robot.urdf.xacro')
 	robot_description_config = xacro.process_file(xacro_file)
+	rviz_config_path = os.path.join(pkg_path,'config','urdf_config.rviz')
 	
 	# Create a robot_state_publisher node
 	params = {'robot_description': robot_description_config.toxml(), 'use_sim_time': use_sim_time}
@@ -28,6 +28,22 @@ def generate_launch_description():
 		parameters=[params]
 	)
 
+	# Create a joint_state_publisher_gui node
+	joint_state_publisher_gui_node = Node(
+		package='joint_state_publisher_gui',
+		executable='joint_state_publisher_gui',
+		name='joint_state_publisher_gui'
+	)
+
+	# Create a rviz2 node		
+	rviz_node = Node(
+		package='rviz2',
+		executable='rviz2',
+		name='rviz2',
+		output='screen',
+		arguments=['-d', LaunchConfiguration('rvizconfig')]
+	)
+
 	# Launch
 	return LaunchDescription([
 		DeclareLaunchArgument(
@@ -35,5 +51,11 @@ def generate_launch_description():
 			default_value='false',
 			description='Use sim time if true'),
 
-		node_robot_state_publisher
+		DeclareLaunchArgument(name='rvizconfig', 
+							  default_value=rviz_config_path,
+							  description='Absolute path to rviz config file'),
+
+		node_robot_state_publisher,
+		joint_state_publisher_gui_node,
+		rviz_node
 	])

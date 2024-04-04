@@ -4,7 +4,7 @@
 	<!-- Colors Definition -->
 	<material name="black">
 		<color rgba="0.0 0.0 0.0 1.0" />
-    </material>
+	</material>
 
 	<material name="red">
 		<color rgba="0.7 0.0 0.0 1.0"/>
