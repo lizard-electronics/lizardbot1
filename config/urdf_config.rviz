@@ -63,6 +63,8 @@ Visualization Manager:
           Value: true
         left_wheel:
           Value: true
+        odom:
+          Value: true
         right_wheel:
           Value: true
       Marker Scale: 1
@@ -79,6 +81,8 @@ Visualization Manager:
             {}
           right_wheel:
             {}
+        odom:
+          {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -134,7 +138,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: chassis
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -177,7 +181,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.9966355562210083
+      Distance: 5.36396598815918
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
