@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     
     <joint name="camera_joint" type="fixed">
-        <origin xyz="0.305 0.0 0.05" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.202 0.0 ${chassis_height/2}" rpy="0.0 0.0 0.0"/>
         <parent link="chassis"/>
         <child link="camera"/>
     </joint>
@@ -10,7 +10,7 @@
     <link name="camera">
         <visual>
             <geometry>
-                <box size="0.010 0.03 0.03"/>
+                <box size="0.002 0.03 0.03"/>
             </geometry>
             <material name="red"/>
         </visual>
