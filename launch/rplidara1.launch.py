@@ -13,7 +13,8 @@ def generate_launch_description():
                 'serial_port': '/dev/ttyUSB0',
                 'frame_id': 'lidar',
                 'angle_compensate': True,
-                'scan_mode': 'Sensitivity'
+                'scan_mode': 'Standard',
+                'flip_x_axis': True
             }]
         )
     ])

@@ -20,7 +20,7 @@ def generate_launch_description():
     xacro_file = os.path.join(pkg_path,'description','robot.urdf.xacro')
     # robot_description_config = xacro.process_file(xacro_file).toxml()     # switch comments to return to gazebo control
     robot_description_config = Command(['xacro ', xacro_file, ' use_ros2_control:=', use_ros2_control, ' sim_mode:=', use_sim_time])
-    rviz_config_path = os.path.join(pkg_path,'config','drive_config.rviz')
+    # rviz_config_path = os.path.join(pkg_path,'config','drive_config.rviz')    # ROBOT COMMENT
     
     # Create a robot_state_publisher node
     params = {'robot_description': robot_description_config, 'use_sim_time': use_sim_time}
@@ -39,13 +39,13 @@ def generate_launch_description():
     )
     '''
     # Create a rviz2 node		
-    rviz_node = Node(
-        package='rviz2',
-        executable='rviz2',
-        name='rviz2',
-        output='screen',
-        arguments=['-d', LaunchConfiguration('rvizconfig')]
-    )
+    # rviz_node = Node(
+    #     package='rviz2',
+    #     executable='rviz2',
+    #     name='rviz2',
+    #     output='screen',
+    #     arguments=['-d', LaunchConfiguration('rvizconfig')]
+    # )
     # Launch
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -56,11 +56,11 @@ def generate_launch_description():
             'use_ros2_control',
             default_value='true',
             description='Use ros2_control if true'),
-        DeclareLaunchArgument(name='rvizconfig', 
-                            default_value=rviz_config_path,
-                            description='Absolute path to rviz config file'),
+        # DeclareLaunchArgument(name='rvizconfig', 
+        #                     default_value=rviz_config_path,
+        #                     description='Absolute path to rviz config file'),
 
-        node_robot_state_publisher,
+        node_robot_state_publisher
         # joint_state_publisher_gui_node,
-        rviz_node
+        # rviz_node
     ])
