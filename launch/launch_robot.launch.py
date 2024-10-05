@@ -1,5 +1,4 @@
 import os
-
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
@@ -13,10 +12,10 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    package_name = 'lizardbot1'
+    pkg_path = os.path.join(get_package_share_directory(package_name))
 
-    package_name='lizardbot1'
-
-    # Include the launch file
+    # Include robot state publisher launch file
     rsp = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory(package_name),'launch','rsp.launch.py'
@@ -24,6 +23,11 @@ def generate_launch_description():
             launch_arguments={'use_sim_time': 'false',
                               'use_ros2_control': 'true'}.items()
           )
+    
+    # Include RPLidarA1 launch file
+    rplidar_launch_file = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(pkg_path,'launch','rplidara1.launch.py')])
+    )
 
     # Get robot description and controller parameters for controller manager
     robot_description = Command(['ros2 param get --hide-type /robot_state_publisher robot_description'])
@@ -71,5 +75,7 @@ def generate_launch_description():
         rsp,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
-        delayed_joint_broad_spawner
+        delayed_joint_broad_spawner,
+        rplidar_launch_file
+        # [TODO] Camera
     ])
