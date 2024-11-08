@@ -10,7 +10,7 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
     package_name = 'lizardbot1'
     pkg_path = os.path.join(get_package_share_directory(package_name))
-    rviz_config_path = os.path.join(pkg_path,'config','drive_config.rviz')
+    rviz_config_path = os.path.join(pkg_path,'rviz','nav_config.rviz')
 
     joystick_launch_file = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(pkg_path,'launch','joystick.launch.py')])
@@ -32,6 +32,7 @@ def generate_launch_description():
 
         joystick_launch_file,
         rviz_node
+        # [TODO] twist_mux
         # [TODO] slam_toolbox: cpy original launch file to lizardbot1 package, and include launch here
         # [TODO] nav2: cpy original launch file to lizardbot1 package, and include launch here
     ])
